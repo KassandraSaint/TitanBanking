@@ -2,6 +2,7 @@
 var http = require("http");
 var url = require('url');
 var fileSystem = require('fs');
+// Importing new transactionManager module
 var transactionManager = require("transactionmanager");
 
 // Creating http server and passing callback function
@@ -9,9 +10,12 @@ http.createServer(function (request, response) {
   // Creating url object by parsing url
   var urlObj = url.parse(request.url, true, false);
 
+  // If url is transactions.html and request method is GET
   if (urlObj.pathname == "/transactions.html" && request.method == "GET") {
+    // We will call getTransactions method and write a response 200, OK
     let transactions = transactionManager.getTransactions();
     response.writeHead(200);
+    // Converting JSON to a JSON string and showing it on a page
     response.end(JSON.stringify(transactions));
   }
   else {
